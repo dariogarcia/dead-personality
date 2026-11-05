@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n-doc>Find your dead soulmate</title>
+<meta name="description" content="Answer questions about your own tastes and temperament, and meet the historical figures who shared them. Runs entirely in your browser, no network.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-head">
+  <h1 data-i18n="title">Find your dead soulmate</h1>
+  <p class="tagline" data-i18n="tagline">Pull up a chair. Answer for yourself — and meet the dead who shared your tastes.</p>
+  <div class="ornament" aria-hidden="true">❧</div>
+  <nav class="lang-switch" aria-label="Language">
+    <button id="lang-en" type="button">English</button>
+    <button id="lang-es" type="button">Español</button>
+    <button id="lang-ca" type="button">Català</button>
+  </nav>
+</header>
+
+<main id="app">
+
+  <section id="screen-quiz" class="screen quiz-grid">
+    <div class="card quiz-card">
+      <div class="progress-row">
+        <span id="q-count" class="q-count">Question 1 of 20</span>
+        <span id="q-dots" class="dots" aria-hidden="true"></span>
+      </div>
+      <p id="q-text" class="q-text" aria-live="polite">…</p>
+      <div class="options">
+        <button id="opt-0" class="option" type="button"></button>
+        <button id="opt-1" class="option" type="button"></button>
+      </div>
+      <div class="quiz-tools">
+        <button id="btn-back" class="ghost" type="button">↩ <span data-i18n="takeBack">Take back last answer</span></button>
+        <button id="btn-restart" class="ghost" type="button"><span data-i18n="startOver">Start over</span></button>
+      </div>
+    </div>
+
+    <aside id="side-panel" class="card side-panel" aria-live="polite">
+      <h3 data-i18n="sideTitle">Your soulmate, so far</h3>
+      <div id="side-unknown" class="side-unknown">
+        <div class="mystery" aria-hidden="true">?</div>
+        <p class="mystery-q" data-i18n="mysteryQ">Who's waiting to meet you?</p>
+        <p class="small" id="mystery-hint" data-i18n="mysteryHint">Make yourself comfortable — after a few answers, your first kindred spirit appears here.</p>
+      </div>
+      <div id="side-match" hidden>
+        <button id="side-top" class="side-top" type="button">
+          <span id="side-photo-slot"></span>
+          <span class="side-top-info">
+            <strong id="side-name"></strong>
+            <span id="side-meta" class="alt-meta"></span>
+            <span id="side-agreement" class="side-agreement"></span>
+            <span id="side-shared" class="side-shared"></span>
+          </span>
+        </button>
+        <p class="small" id="side-explain"></p>
+        <h4 data-i18n="panelRemark">Why they're remarkable</h4>
+        <p id="side-blurb" class="side-blurb"></p>
+        <h4 id="side-books-title" data-i18n="panelBooks">Recommended reading</h4>
+        <ul id="side-books" class="side-books"></ul>
+        <h4 data-i18n="panelEvidence">How your answers match</h4>
+        <ul id="side-evidence" class="side-evidence"></ul>
+        <blockquote id="side-quote" class="person-quote" hidden>
+          <p id="side-quote-text"></p>
+          <footer class="small" id="side-quote-src"></footer>
+        </blockquote>
+        <h4 data-i18n="alsoClose">Others close to you</h4>
+        <ol id="side-others" class="alternatives side-others"></ol>
+      </div>
+    </aside>
+  </section>
+
+  <section id="screen-result" class="screen" hidden>
+    <div class="card">
+      <p class="verdict-line"><span data-i18n="verdict">You agree on</span> <span id="agreement">—</span> <span data-i18n="verdict2">of the weighted preferences:</span></p>
+      <div class="match-row">
+        <span id="photo-slot"></span>
+        <div class="match-head">
+          <h2 id="g-name" tabindex="-1">—</h2>
+          <p id="g-meta" class="g-meta">—</p>
+        </div>
+      </div>
+      <p id="portrait-credit" class="small portrait-credit"></p>
+      <p id="g-blurb" class="g-blurb"></p>
+      <h3 id="g-quote-title" data-i18n="inTheirWords" hidden>In their own words</h3>
+      <blockquote id="g-quote" class="person-quote" hidden>
+        <p id="g-quote-text"></p>
+        <footer class="small" id="g-quote-src"></footer>
+      </blockquote>
+      <p id="g-explain" class="g-explain small"></p>
+
+      <h3 data-i18n="whatYouShare">What you share</h3>
+      <ul id="receipts" class="receipts"></ul>
+
+      <h3 data-i18n="readAbout">Read about them</h3>
+      <ul id="books" class="books"></ul>
+      <p class="small" data-i18n="booksNote">Links open an external book search — nothing loads until you click.</p>
+
+      <div id="alternatives-wrap">
+        <h3 data-i18n="otherKindred">Other kindred spirits</h3>
+        <ol id="alternatives" class="alternatives"></ol>
+      </div>
+
+      <div class="result-tools">
+        <button id="btn-again" class="big" type="button"><span data-i18n="meetSomeoneNew">Start over — meet someone new</span></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<details id="about" class="about">
+  <summary data-i18n="aboutTitle">About this service — please read</summary>
+  <div class="about-body">
+    <div data-about-lang="en">
+      <h4>About this service — please read</h4>
+      <p>This website is a free, non-commercial service provided as a research experiment. It was designed, coded, and is largely maintained with the help of <strong>open-source AI models</strong>, as part of an ongoing experiment to assess the quality and limits of open models for complex software development. The models run on public research infrastructure hosted at the <a href="https://www.bsc.es" target="_blank" rel="noopener noreferrer">Barcelona Supercomputing Center (BSC)</a>; the site itself is deployed on public hosting. This is an internal research project: it is <strong>not an official BSC product or publication</strong>, it does not represent the positions of BSC, and BSC does not endorse and is not responsible for its content.</p>
+      <p>The service is provided <strong>free of charge, “as is” and “as available”</strong>, without warranties of any kind, express or implied. Because much of its content and code is machine-generated, it <strong>may contain errors, bugs, inaccuracies, or outdated information</strong>. Do not rely on it as a sole or authoritative source; always verify critical information independently.</p>
+      <p>There is no guarantee of availability, continuity, or support: the service may be modified, suspended, or discontinued at any time. The author accepts no liability for any loss or damage arising from the use of, or inability to use, this service.</p>
+      <p>Feedback, bug reports, and suggestions are welcome and help improve both this service and the underlying research — please open an issue on the project’s <a href="https://github.com/dariogarcia/dead-personality/issues" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+    </div>
+    <div data-about-lang="es" hidden>
+      <h4>Sobre este servicio — por favor, lee esto</h4>
+      <p>Este sitio web es un servicio gratuito y no comercial ofrecido como experimento de investigación. Ha sido diseñado, programado y se mantiene en gran parte con ayuda de <strong>modelos de IA de código abierto</strong>, dentro de un experimento en curso para evaluar la calidad y los límites de los modelos abiertos en el desarrollo de software complejo. Los modelos se ejecutan en la infraestructura de investigación pública del <a href="https://www.bsc.es" target="_blank" rel="noopener noreferrer">Barcelona Supercomputing Center (BSC)</a>; el sitio se publica en un alojamiento público. Se trata de un proyecto de investigación interno: <strong>no es un producto ni una publicación oficial del BSC</strong>, no representa las posiciones del BSC, y el BSC no respalda ni es responsable de su contenido.</p>
+      <p>El servicio se ofrece <strong>gratis, “tal cual” y “según disponibilidad”</strong>, sin garantías de ningún tipo, expresas o implícitas. Dado que gran parte de su contenido y código está generada por máquinas, <strong>puede contener errores, fallos, inexactitudes o información desactualizada</strong>. No lo uses como fuente única o autoritativa: verifica siempre la información crítica por tu cuenta.</p>
+      <p>No se garantiza la disponibilidad, la continuidad ni el soporte: el servicio puede modificarse, suspenderse o interrumpirse en cualquier momento. El autor no asume responsabilidad alguna por daños o perjuicios derivados del uso, o de la imposibilidad de uso, de este servicio.</p>
+      <p>Los comentarios, informes de errores y sugerencias son bienvenidos y ayudan a mejorar tanto este servicio como la investigación subyacente — abre un issue en el <a href="https://github.com/dariogarcia/dead-personality/issues" target="_blank" rel="noopener noreferrer">repositorio de GitHub del proyecto</a>.</p>
+    </div>
+    <div data-about-lang="ca" hidden>
+      <h4>Sobre aquest servei — si us plau, llegeix això</h4>
+      <p>Aquest lloc web és un servei gratuït i no comercial ofert com a experiment de recerca. Ha estat dissenyat, programat i es manté en gran part amb ajuda de <strong>models d'IA de codi obert</strong>, dins d'un experiment en curs per avaluar la qualitat i els límits dels models oberts en el desenvolupament de programari complex. Els models s'executen en la infraestructura de recerca pública del <a href="https://www.bsc.es" target="_blank" rel="noopener noreferrer">Barcelona Supercomputing Center (BSC)</a>; el lloc es publica en un allotjament públic. Es tracta d'un projecte de recerca intern: <strong>no és un producte ni una publicació oficial del BSC</strong>, no representa les posicions del BSC, i el BSC no recolza ni és responsable del seu contingut.</p>
+      <p>El servei s'ofereix <strong>gratis, “tal qual” i “segons disponibilitat”</strong>, sense garanties de cap mena, expressades o implícites. Atès que gran part del seu contingut i codi està generat per màquines, <strong>pot contenir errors, fallades, inexactituds o informació desactualitzada</strong>. No l'utilitzis com a font única o autoritzativa: verifica sempre la informació crítica pel teu compte.</p>
+      <p>No es garanteix la disponibilitat, la continuïtat ni el suport: el servei pot modificar-se, suspendre's o interrompre's en qualsevol moment. L'autor no assumeix cap responsabilitat per danys o perjudicis derivats de l'ús, o de la impossibilitat d'ús, d'aquest servei.</p>
+      <p>Els comentaris, informes d'errors i suggeriments són benvinguts i ajuden a millorar tant aquest servei com la recerca subjacent — obre un issue al <a href="https://github.com/dariogarcia/dead-personality/issues" target="_blank" rel="noopener noreferrer">repositori de GitHub del projecte</a>.</p>
+    </div>
+  </div>
+</details>
+
+<footer class="site-foot">
+  <p data-i18n="footer">Static, offline, zero-request build. Book links go out only if you click them. Portraits are public-domain or Creative-Commons licensed images fetched at build time and shipped locally.</p>
+  <p class="foot-disclaimer"><span data-i18n="disclaimerShort">Experimental free service from an internal BSC research project, largely built by open-source AI models on BSC infrastructure. Not an official BSC product — provided as-is, may contain errors.</span> <a href="#about" data-i18n="disclaimerLink">Full disclaimer</a></p>
+  <p class="foot-disclaimer"><a href="https://github.com/dariogarcia/dead-personality" target="_blank" rel="noopener noreferrer" data-i18n="sourceLink">Source &amp; method on GitHub</a></p>
+</footer>
+
+<script src="engine.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
